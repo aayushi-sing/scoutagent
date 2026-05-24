@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+venv/
+vvenv/
+scout_history.db
+scout_memory.json
+*.egg-info/
+.DS_Store
