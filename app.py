@@ -9,14 +9,8 @@ init_db()
 
 # Sidebar — Memory + History
 with st.sidebar:
-    st.markdown("### 🧠 Agent Memory")
-    memories = get_all_memories() or []
-    if isinstance(memories, dict):
-        memories = memories.get("results", [])  
-    for mem in memories[:8]:
-        content = mem.get("memory", "")
-        st.caption(content[:120] + ("..." if len(content) > 120 else ""))
-        st.divider()
+    st.markdown("### Agent Memory")
+    
 
     st.markdown("### 📜 History")
     for row in get_history(10):
@@ -45,7 +39,7 @@ if run_btn and topic.strip():
 
     def on_step(step, msg):
         steps.append(f"**[{step}]** {msg}")
-        #log_box.markdown("\n\n".join(steps))
+        log_box.markdown("\n\n".join(steps))
         st.session_state["steps"] = steps
 
 

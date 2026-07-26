@@ -1,9 +1,9 @@
-crewai==0.41.1
+
+
+crewai
 crewai-tools>=0.1.0
 tavily-python>=0.3.0
-mem0ai>=0.0.20
 streamlit>=1.32.0
 openai>=1.0.0
 python-dotenv>=1.0.0
-litellm==1.44.28
 setuptools

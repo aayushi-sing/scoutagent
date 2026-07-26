@@ -1,4 +1,4 @@
-import sys
+''''import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import json
@@ -12,6 +12,36 @@ import litellm
 litellm.retry_policy = {
     "RateLimitError": {"retry_after": 15}
 }
+load_dotenv()'''
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import json
+from dotenv import load_dotenv
+from crewai import Crew, Process
+
+from agents.crew_agents import (
+    make_planner_agent,
+    make_scout_agent,
+    make_researcher_agent,
+    make_critic_agent,
+    make_reporter_agent,
+    make_memory_agent,
+)
+from agents.crew_tasks import (
+    make_plan_task,
+    make_scout_task,
+    make_research_task,
+    make_critic_task,
+    make_report_task,
+    make_memory_task,
+)
+from memory.mem0_client import get_past_research, save_research
+from db.history import init_db, log_run
+
+
+
 load_dotenv()
 
 def run_pipeline(topic: str, callback=None) -> dict:
@@ -40,18 +70,32 @@ def run_pipeline(topic: str, callback=None) -> dict:
     t_report   = make_report_task(reporter, t_critic, topic)
     t_memory   = make_memory_task(mem_agent, t_report, topic)
 
-    log("Planner",    "Breaking down research plan...")
+    '''log("Planner",    "Breaking down research plan...")
     log("Scout",      "Searching the web for startups...")
     log("Researcher", "Digging into traction and signals...")
     log("Critic",     "Scoring — separating signal from hype...")
     log("Reporter",   "Writing final report...")
-    log("Memory",     "Saving to long-term memory...")
+    log("Memory",     "Saving to long-term memory...")'''
+
+    STEP_INFO = {
+    "Research Planner":  "Breaking down research plan...",
+    "Startup Scout":     "Searching the web for startups...",
+    "Deep Researcher":   "Digging into traction and signals...",
+    "Investment Critic": "Scoring — separating signal from hype...",
+    "Report Writer":     "Writing final report...",
+    "Memory Manager":    "Saving to long-term memory...",
+}
+
+    def on_task_done(output):
+        msg = STEP_INFO.get(output.agent, "Task complete")
+        log(output.agent, f" {msg} — done")
 
     crew = Crew(
         agents=[planner, scout, researcher, critic, reporter, mem_agent],
         tasks=[t_plan, t_scout, t_research, t_critic, t_report, t_memory],
         process=Process.sequential,
         verbose=True,
+        task_callback=on_task_done,  
     )
 
     result = crew.kickoff()

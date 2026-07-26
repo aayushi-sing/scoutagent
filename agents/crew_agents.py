@@ -7,6 +7,17 @@ from tools.search import TavilySearchTool
 # Shared Search Tool
 search_tool = TavilySearchTool()
 
+def make_planner_agent():
+    return Agent(
+        role="Research Planner",
+        goal="Create a brief research plan for a startup topic.",
+        backstory="Venture analyst who scopes research tightly and thinks about signal quality.",
+        verbose=False,
+        allow_delegation=False,
+        tools=[],
+        llm=llm
+    )
+
 def make_scout_agent():
     return Agent(
         role="Startup Scout",
