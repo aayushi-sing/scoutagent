@@ -41,13 +41,49 @@ No single LLM call does this. It's an orchestrated pipeline where each agent's o
 
 ## Demo
 
-| Live run | Report output |
-|---|---|
-| ![Execution log](docs/screenshots/execution-log.png) | ![Report](docs/screenshots/report.png) |
+### 🚀 Application Overview
 
-| Persistent memory & eval status (sidebar) |
-|---|
-| ![Sidebar](docs/screenshots/sidebar.png) |
+<p align="center">
+  <img src="docs/screenshots/overview.png" alt="ScoutAgent Application Overview" width="1000"/>
+</p>
+
+ScoutAgent provides an end-to-end research workflow where specialized AI agents collaboratively discover, analyze, score, and report on startup ecosystems while maintaining persistent memory across runs.
+
+---
+
+### ⚙️ Multi-Agent Execution & Generated Report
+
+<table>
+<tr>
+<td align="center" width="50%">
+
+**Live Execution Log**
+
+<img src="docs/screenshots/execution-log.png" alt="Execution Log" width="100%"/>
+
+</td>
+
+<td align="center" width="50%">
+
+**Generated Intelligence Report**
+
+<img src="docs/screenshots/report.png" alt="Generated Report" width="100%"/>
+
+</td>
+</tr>
+</table>
+
+The execution log visualizes each agent's contribution to the pipeline, while the generated report summarizes startup analysis, scoring, investment signals, and recommendations.
+
+---
+
+### 🧪 Evaluation Results
+
+<p align="center">
+  <img src="docs/screenshots/eval.png" alt="Evaluation Results" width="350"/>
+</p>
+
+ScoutAgent includes an evaluation harness that automatically validates pipeline outputs, measures coverage, tracks latency, and highlights known failure cases.
 
 <!-- Replace these paths once screenshots are added to docs/screenshots/ -->
 
@@ -187,5 +223,3 @@ scoutagent/
 - [ ] Model-agnostic provider config for switching paid/free LLMs without code changes
 
 ---
-
-Built by [Aayushi Singh](https://github.com/aayushi-sing) — feedback and issues welcome.
