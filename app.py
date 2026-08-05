@@ -18,6 +18,19 @@ with st.sidebar:
             st.session_state["loaded_report"] = get_report_by_id(row["id"])
             st.session_state["loaded_topic"]  = row["topic"]
 
+    st.markdown("### 🧪 Eval Results")
+    import glob, json
+    eval_files = sorted(glob.glob("eval/results/*.json"))
+    if eval_files:
+        with open(eval_files[-1]) as f:
+            eval_data = json.load(f)
+        st.metric("Passed", f"{eval_data['passed']}/{eval_data['total']}")
+        for r in eval_data["runs"]:
+            icon = "✅" if r["pass"] else "❌"
+            st.write(f"{icon} {r['id']}")
+    else:
+        st.caption("No eval results found yet.")
+
 # Main
 st.title("🔭 Autonomous Startup Scout Agent")
 st.caption("CrewAI · Tavily · Mem0 · Persistent Memory")
@@ -65,16 +78,22 @@ if "result" in st.session_state:
 
     if res["scores"]:
         st.markdown("#### 🏆 Scores")
-        for name, score in sorted(res["scores"].items(), key=lambda x: x[1], reverse=True):
-            color = "🟢" if score >= 7 else ("🟡" if score >= 4 else "🔴")
+        def _num(v):
+            try:
+                return float(v)
+            except (ValueError, TypeError):
+                return 0.0
+        for name, score in sorted(res["scores"].items(), key=lambda x: _num(x[1]), reverse=True):
+            score_val = _num(score)
+            color = "🟢" if score_val >= 7 else ("🟡" if score_val >= 4 else "🔴")
             st.write(f"{color} **{name}** — {score}/10")
 
     st.divider()
-    st.markdown(res["report"])
+    st.markdown(res["report"].replace("\$", "  \\$"))
     st.download_button("⬇️ Download Report", res["report"],
                        file_name="scout_report.md", mime="text/markdown")
 
 elif "loaded_report" in st.session_state:
     st.divider()
     st.info(f"Past run: **{st.session_state.get('loaded_topic','')}**")
-    st.markdown(st.session_state["loaded_report"])
+    st.markdown(st.session_state["loaded_report"].replace("\$", "  \\$"))
