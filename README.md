@@ -1,43 +1,59 @@
 # 🔭 ScoutAgent — Autonomous Startup Scout
-
+ 
 **A multi-agent AI pipeline that researches an entire startup landscape end-to-end — planning, searching, analyzing, scoring, and reporting — with zero human intervention between steps.**
-
+ 
 Built to explore agent orchestration, tool-use, persistent memory, and evaluation design for production-style LLM systems.
-
+ 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![CrewAI](https://img.shields.io/badge/CrewAI-1.15.9-orange)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.32+-red)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
-
+![License](https://img.shields.io/badge/license-MIT-green)
+ 
 ---
-
+ 
 ## Table of Contents
-
+ 
 - [What it does](#what-it-does)
+- [Key features](#-key-features)
 - [Demo](#demo)
 - [Architecture](#architecture)
 - [Why this project](#why-this-project)
 - [Tech stack](#tech-stack)
 - [Getting started](#getting-started)
+- [Sample research topics](#-sample-research-topics)
 - [Evaluation & testing](#evaluation--testing)
 - [Engineering decisions & known limitations](#engineering-decisions--known-limitations)
 - [Project structure](#project-structure)
 - [Roadmap](#roadmap)
-
+- [License](#license)
 ---
-
+ 
 ## What it does
-
+ 
 Give ScoutAgent a topic — *"AI coding assistants," "climate tech startups," "AI agents for customer support"* — and six specialized agents work in sequence to turn it into an investment-analyst-grade report:
-
+ 
 1. **Plan** the research strategy (queries, categories, scoring criteria)
 2. **Search** the live web for 5–8 relevant startups
 3. **Research** each one deeply (funding, team, social proof, competitors, red flags)
 4. **Score** every startup 1–10 with reasoning, flagging hype vs. signal
 5. **Write** a scannable markdown report (Executive Summary → Scorecard → Top Picks → Next Actions)
 6. **Remember** — persist a structured summary so future runs on related topics build on what's already known
-
 No single LLM call does this. It's an orchestrated pipeline where each agent's output becomes the next agent's context.
+ 
+---
+ 
+## ✨ Key Features
+ 
+- 🤖 **Six specialized AI agents** working sequentially with explicit handoffs — not one prompt doing everything
+- 🔎 **Live web research** using Tavily Search — real-time results, not static training data
+- 🧠 **Persistent memory across sessions** — repeat or related research builds on what's already known, not starting from zero each time
+- 📊 **Investment-style startup scoring** — 1–10 scores with reasoning, hype flags, and top pick identification
+- 📄 **Automatic report generation** — structured markdown output across 5 fixed sections, every run
+- 🧪 **Built-in evaluation framework** — structural checks on JSON validity, coverage, completeness, and latency across 6 test cases
+- 📜 **SQLite run history** — every research session is logged and reloadable from the sidebar
+- ⚙️ **Swappable LLM provider** — one-line change in `llm_config.py` to switch models or providers
+---
 
 ## Demo
 
@@ -148,6 +164,21 @@ Run the eval suite:
 ```bash
 python eval/run_eval.py
 ```
+## 🔍 Sample Research Topics
+ 
+Try these to see ScoutAgent in action:
+ 
+- `AI coding assistants`
+- `AI agents for customer support`
+- `climate tech startups`
+- `AI cybersecurity startups`
+- `space tech startups`
+- `AI note-taking tools for students`
+- `no-code app builders`
+- `AI legal tech startups`
+Tip: specific, niche topics (e.g. *"AI coding assistants"*) tend to produce stronger reports than broad single-word queries (e.g. *"productivity"*) — the Research Planner has more to work with when the topic is scoped.
+ 
+---
 
 ## Evaluation & testing
 
@@ -222,4 +253,10 @@ scoutagent/
 - [ ] Parallelize Scout and Researcher steps where they don't share live dependencies
 - [ ] Model-agnostic provider config for switching paid/free LLMs without code changes
 
+---
+ 
+## License
+ 
+This project is licensed under the [MIT License](LICENSE).
+ 
 ---
