@@ -6,4 +6,4 @@ vvenv/
 scout_history.db
 scout_memory.json
 *.egg-info/
-.DS_Store
+.DS_Store"eval/results/" 
