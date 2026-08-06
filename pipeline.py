@@ -1,18 +1,3 @@
-''''import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import json
-from dotenv import load_dotenv
-from crewai import Crew, Process
-from agents.crew_agents import *
-from agents.crew_tasks import *
-from memory.mem0_client import get_past_research, save_research
-from db.history import init_db, log_run
-import litellm
-litellm.retry_policy = {
-    "RateLimitError": {"retry_after": 15}
-}
-load_dotenv()'''
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -70,12 +55,6 @@ def run_pipeline(topic: str, callback=None) -> dict:
     t_report   = make_report_task(reporter, t_critic, topic)
     t_memory   = make_memory_task(mem_agent, t_report, topic)
 
-    '''log("Planner",    "Breaking down research plan...")
-    log("Scout",      "Searching the web for startups...")
-    log("Researcher", "Digging into traction and signals...")
-    log("Critic",     "Scoring — separating signal from hype...")
-    log("Reporter",   "Writing final report...")
-    log("Memory",     "Saving to long-term memory...")'''
 
     STEP_INFO = {
     "Research Planner":  "Breaking down research plan...",

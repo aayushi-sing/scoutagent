@@ -5,5 +5,8 @@ venv/
 vvenv/
 scout_history.db
 scout_memory.json
+memory_db/
 *.egg-info/
-.DS_Store"eval/results/" 
+.DS_Store
+Thumbs.db
+eval/results/ 
