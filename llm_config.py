@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 llm = LLM(
-    model="openrouter/inclusionai/ling-3.0-flash:free",
+    model="openrouter/inclusionai/ling-3.0-tiny:free",
     api_key=os.getenv("OPENROUTER_API_KEY"),
     temperature=0.1,
     max_tokens=2000,        # limit output per call
